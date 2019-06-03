@@ -23,13 +23,12 @@ any other Django model.
 ESSENCE v1.1.0.celer3 SPECIFICS
 ===============================
 
-This fork intended to use this package in Essence packages:
+This fork intended to use this package in Essence Olive3 application:
 - Celery v3.1.17
-- Django 1.8.19
+- Django 1.7+
 
 NOTE 1: fixes make the package run in Olive3 application.
-NOTE 2: Unit tests require more efforts. For now it was decided to have integration tests with current package in
-Olive3 to make sure it works properly.
+NOTE 2: fixing unit tests require more efforts. For now it was decided to have integration tests in the Olive3 app.
 
 
 Installing
