@@ -20,7 +20,7 @@ used to store task results, and you can query this database table like
 any other Django model.
 
 
-ESSENCE v1.1.0.celer3 SPECIFICS
+ESSENCE v1.1.0.celery3 SPECIFICS
 ===============================
 
 This fork intended to use this package in Essence Olive3 application:
