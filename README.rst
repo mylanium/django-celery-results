@@ -4,7 +4,7 @@
 
 |build-status| |coverage| |license| |wheel| |pyversion| |pyimp|
 
-:Version: 1.0.4
+:Version: 1.1.0.celery3
 :Web: http://django-celery-results.readthedocs.io/
 :Download: http://pypi.python.org/pypi/django-celery-results
 :Source: http://github.com/celery/django-celery-results
@@ -18,6 +18,19 @@ This extension enables you to store Celery task results using the Django ORM.
 It defines a single model (``django_celery_results.models.TaskResult``)
 used to store task results, and you can query this database table like
 any other Django model.
+
+
+ESSENCE v1.1.0.celer3 SPECIFICS
+===============================
+
+This fork intended to use this package in Essence packages:
+- Celery v3.1.17
+- Django 1.8.19
+
+NOTE 1: fixes make the package run in Olive3 application.
+NOTE 2: Unit tests require more efforts. For now it was decided to have integration tests with current package in
+Olive3 to make sure it works properly.
+
 
 Installing
 ==========
