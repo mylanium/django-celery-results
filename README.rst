@@ -19,17 +19,12 @@ It defines a single model (``django_celery_results.models.TaskResult``)
 used to store task results, and you can query this database table like
 any other Django model.
 
+About the fork
+==============
 
-ESSENCE v1.1.0.celery3 SPECIFICS
-===============================
-
-This fork intended to use this package in Essence Olive3 application:
-- Celery v3.1.17
-- Django 1.7+
-
-NOTE 1: fixes make the package run in Olive3 application.
-NOTE 2: fixing unit tests require more efforts. For now it was decided to have integration tests in the Olive3 app.
-
+This fork backported the main package (``django-celery-results v1.1.0``) to bring support
+with Django 1.7+ and Celery 3.1.17+.
+Note, unit tests have not been backported yet.
 
 Installing
 ==========
