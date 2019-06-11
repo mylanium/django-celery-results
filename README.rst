@@ -26,6 +26,71 @@ This fork backported the main package (``django-celery-results v1.1.0``) to brin
 with Django 1.7+ and Celery 3.1.17+.
 Note, unit tests have not been backported yet.
 
+How to integrate this fork with Django-Celery application
+---------------------------------------------------------
+
+To integrate Django-Celery based application with this fork you need to have:
+- Django v1.7+
+- Celery v3.1.17+
+
+In the package, update ``setup.py``:
+  - extends the ``install_requires`` list with 'django-celery-results==1.1.0.celery3' item,
+  - extends the ``dependency_links`` list with
+    'git+https://github.com/essence-tech/django-celery-results.git@celery-v3-fix#egg=django-celery-results-1.1.0.celery3'
+    item.
+  - extend ``INSTALLED_APPS`` list of Django's `settings.py` with ``'django_celery_results'`` item,::
+    >>> INSTALLED_APPS = (
+    ...     ...,
+    ...     'django_celery_results',
+    ... )
+  - run migrations,::
+    $ python manage.py migrate celery_results
+
+Setup Django application to have an alternative persistent SQL result backend
+-----------------------------------------------------------------------------
+Here is the case - we have a Django application and for most of the cases we don't need a persistent result backend,
+but for some feature having persistent result is critical.
+
+Celery doesn't support having in one Celery application multiple result backends.
+But we can have celery application with a GENERIC result backend and have an ALTERNATIVE (persistent) result backend.
+Then to make a celery task work with ALTERNATIVE (persistent) result backend - we can just set `backend` property to
+this ALTERNATIVE result backend. To retrieve results from this task we also need to pass the ALTERNATIVE result
+backend into AsyncResult instance.
+
+Here is an example of the approach:
+
+1. Base django configuration, `settings.py`,::
+    >>> CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+    >>> INSTALLED_APPS = (
+    ...     ...,
+    ...     'django_celery_results',
+    ... )
+
+2. Create an alternative persistent backend object, `celery.py`,::
+    >>> from celery import Celery
+    >>> from django.conf import settings
+    >>> from django_celery_results.backends.database import DatabaseBackend
+    >>> app = Celery('project')
+    >>> app.config_from_object('django.conf:settings')
+    >>> app.autodiscover_tasks(lambda: settings.INSTALLED_APPS, force=True)
+    >>> persistent_backend = DatabaseBackend(app=app)
+
+3. Bind the alternative persistent result backend in a celery task,::
+    >>> from celery.task import Task
+    >>> class TaskWithPersistentResults(Task):
+    ...     @property
+    ...     def backend(cls):
+    ...         from celery import persistent_backend
+    ...         return persistent_backend
+
+     NOTE: here persistent backend is hidden in the method to resolve cyclic import issue, since from the 2nd (above)
+     excerpt you can see that there is ``app.autodiscover_tasks(..)`` call which causes the issue.
+
+4. Retrieve results from the celery task with the alternative persistent result backend,::
+    >>> from celery.result import AsyncResult
+    >>> from celery import app, persistent_backend
+    >>> res = AsyncResult('86e225f4-c662-4795-933d-69d8fac1b056', app=app, backend=persistent_backend)
+
 Installing
 ==========
 
