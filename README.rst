@@ -22,7 +22,7 @@ any other Django model.
 About the fork
 ==============
 
-This fork backported the main package (``django-celery-results v1.1.0``) to bring support
+This fork backported the main package (``django-celery-results v1.1.1``) to bring support
 with Django 1.7+ and Celery 3.1.17+.
 Note, unit tests have not been backported yet.
 
