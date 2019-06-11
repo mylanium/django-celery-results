@@ -4,7 +4,7 @@
 
 |build-status| |coverage| |license| |wheel| |pyversion| |pyimp|
 
-:Version: 1.1.0.celery3
+:Version: 1.1.1.celery3
 :Web: http://django-celery-results.readthedocs.io/
 :Download: http://pypi.python.org/pypi/django-celery-results
 :Source: http://github.com/celery/django-celery-results
@@ -34,9 +34,9 @@ To integrate Django-Celery based application with this fork you need to have:
 - Celery v3.1.17+
 
 In the package, update ``setup.py``:
-  - extends the ``install_requires`` list with 'django-celery-results==1.1.0.celery3' item,
+  - extends the ``install_requires`` list with 'django-celery-results==1.1.1.celery3' item,
   - extends the ``dependency_links`` list with
-    'git+https://github.com/essence-tech/django-celery-results.git@celery-v3-fix#egg=django-celery-results-1.1.0.celery3'
+    'git+https://github.com/essence-tech/django-celery-results.git@master#egg=django-celery-results-1.1.1.celery3'
     item.
   - extend ``INSTALLED_APPS`` list of Django's `settings.py` with ``'django_celery_results'`` item,::
     >>> INSTALLED_APPS = (
