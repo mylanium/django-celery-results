@@ -51,11 +51,10 @@ Setup Django application to have an alternative persistent SQL result backend
 Here is the case - we have a Django application and for most of the cases we don't need a persistent result backend,
 but for some feature having persistent result is critical.
 
-Celery doesn't support having in one Celery application multiple result backends.
-But we can have celery application with a GENERIC result backend and have an ALTERNATIVE (persistent) result backend.
-Then to make a celery task work with ALTERNATIVE (persistent) result backend - we can just set `backend` property to
-this ALTERNATIVE result backend. To retrieve results from this task we also need to pass the ALTERNATIVE result
-backend into AsyncResult instance.
+Celery does not support multiple result backends in a single application.
+But you still can set a different result backend on a Celery task level. To achieve this you need to redefine the
+``backend`` task property as shown below. In such case, you also need to pass the same result backend to ``AsynResult``
+constructor to get a proper result.
 
 Here is an example of the approach:
 
