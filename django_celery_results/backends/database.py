@@ -1,7 +1,9 @@
 from __future__ import absolute_import, unicode_literals
 
+from base64 import b64encode, b64decode
+
 from celery.backends.base import BaseDictBackend
-from celery.utils.serialization import b64encode, b64decode
+from kombu.serialization import dumps
 
 from ..models import TaskResult
 
@@ -53,6 +55,9 @@ class DatabaseBackend(BaseDictBackend):
         if content_encoding == 'binary':
             content = b64encode(content)
         return content_type, content_encoding, content
+
+    def _encode(self, data):
+        return dumps(data, serializer=self.serializer)
 
     def decode_content(self, obj, content):
         if content:
