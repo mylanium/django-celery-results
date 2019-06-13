@@ -90,6 +90,25 @@ Here is an example of the approach:
     >>> from celery import app, persistent_backend
     >>> res = AsyncResult('86e225f4-c662-4795-933d-69d8fac1b056', app=app, backend=persistent_backend)
 
+Build package to upload to the PyPi repository
+----------------------------------------------
+
+1. Checkout the package from the github repository::
+   $ git clone https://github.com/essence-tech/django-celery-results.git
+   $ cd django-celery-results
+
+2. Build source distribution::
+   $ python setup.py sdist
+
+3. Install twine (helper package to upload package to PyPi repo)::
+   $ pip install twine
+
+4. Upload package to the PyPi::
+   $ twine upload -r nexus-production dist/*
+
+NOTE: `nexus-production` configured separately. Please look for detailed instructions related to upload to Nexus
+on the wiki page: https://essencedigital.atlassian.net/wiki/spaces/IO/pages/139577933/Pypi+repository
+
 Installing
 ==========
 
