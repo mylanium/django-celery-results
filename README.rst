@@ -205,3 +205,5 @@ max_length of **191** seems to work for MySQL.
 .. |pyimp| image:: https://img.shields.io/pypi/implementation/django-celery-results.svg
     :alt: Support Python implementations.
     :target: http://pypi.python.org/pypi/django-celery-results/
+
+.. test::
